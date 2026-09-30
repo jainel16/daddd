@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Dad! | Nelson Gonzlaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            300: '#FFE5A3',
+                            400: '#FFD700',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                        },
+                        navy: {
+                            900: '#0B132B',
+                            800: '#1C2541',
+                            700: '#3A506B',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Great Vibes', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B132B;
+            color: #F8FAFC;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFE5A3 0%, #FFD700 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .glass-card {
+            background: rgba(28, 37, 65, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .polaroid-card {
+            background: #ffffff;
+            color: #1a1a1a;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .polaroid-card:hover {
+            transform: translateY(-8px) rotate(1deg) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Floating Balloon Animations */
+        .balloon {
+            position: absolute;
+            bottom: -120px;
+            opacity: 0.85;
+            animation: floatUp 8s infinite ease-in;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* Candle Flame Pulse */
+        .flame {
+            animation: flicker 0.8s infinite alternate ease-in-out;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: scale(1.15) rotate(2deg); opacity: 1; filter: drop-shadow(0 0 12px #ffaa00); }
+        }
+
+        /* Page Transitions */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .page-section.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B132B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3A506B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-navy-900">
+
+    <!-- Background Particle Canvas -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Sound Effects / Music Toggle Floating Icon -->
+    <button id="soundToggle" onclick="toggleAudio()" class="fixed top-5 right-5 z-50 p-3 rounded-full glass-card text-gold-400 hover:text-gold-300 border border-gold-500/30 shadow-lg transition-all active:scale-95" title="Toggle Music">
+        <i id="soundIcon" class="fas fa-volume-mute text-lg"></i>
+    </button>
+
+    <!-- Main Container -->
+    <main class="relative z-10 flex-grow flex items-center justify-center p-4 sm:p-6 md:p-8">
+
+        <!-- ================= STEP 1: VIP LOGIN PAGE ================= -->
+        <section id="loginPage" class="page-section active flex-col items-center justify-center w-full max-w-md mx-auto my-auto text-center">
+            <div class="glass-card gold-border-glow p-8 sm:p-10 rounded-3xl w-full relative overflow-hidden shadow-2xl">
+                <!-- Decorative Crown/Shield Icon -->
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-gold-600 via-gold-400 to-gold-300 p-[2px] shadow-lg">
+                    <div class="w-full h-full bg-navy-900 rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-3xl gold-gradient-text"></i>
+                    </div>
+                </div>
+
+                <span class="text-xs font-semibold tracking-widest text-gold-400 uppercase mb-2 block">Exclusive Portal</span>
+                <h1 class="text-3xl sm:text-4xl font-serif font-bold gold-gradient-text mb-3">VIP Access</h1>
+                <p class="text-slate-300 text-sm mb-8 leading-relaxed">
+                    Please enter your full name to verify your identity and unlock your birthday surprise.
+                </p>
+
+                <form onsubmit="handleLogin(event)" class="space-y-5">
+                    <div class="relative">
+                        <i class="fas fa-user-shield absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input 
+                            type="text" 
+                            id="nameInput" 
+                            placeholder="Enter Your Name..." 
+                            required
+                            class="w-full pl-11 pr-4 py-3.5 bg-navy-900/90 border border-slate-700 focus:border-gold-400 rounded-xl text-white placeholder-slate-500 outline-none transition-all shadow-inner focus:ring-2 focus:ring-gold-400/20"
+                        >
+                    </div>
+
+                    <div id="loginError" class="hidden p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs font-medium flex items-center gap-2">
+                        <i class="fas fa-exclamation-circle text-rose-400 shrink-0"></i>
+                        <span>This special invitation is exclusively for <strong>Nelson Gonzlaz</strong>!</span>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full py-4 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500 hover:from-gold-400 hover:to-gold-300 text-navy-900 font-bold rounded-xl shadow-lg hover:shadow-gold-500/20 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 text-base"
+                    >
+                        <span>Unlock Experience</span>
+                        <i class="fas fa-key text-xs"></i>
+                    </button>
+                </form>
+
+                <p class="text-xs text-slate-500 mt-6 italic">Designed with love by Jaiden</p>
+            </div>
+        </section>
+
+        <!-- ================= STEP 2: DASHBOARD / MEMORY GALLERY ================= -->
+        <section id="dashboardPage" class="page-section flex-col items-center justify-start w-full max-w-5xl mx-auto py-8">
+            <!-- Header Greeting -->
+            <div class="text-center mb-10 w-full">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-medium mb-4">
+                    <i class="fas fa-sparkles text-gold-400"></i> Celebrating Greatness
+                </div>
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-extrabold gold-gradient-text tracking-tight mb-4">
+                    Happy Birthday, Dad!
+                </h1>
+                
+                <!-- Heartfelt Quote Box -->
+                <div class="glass-card gold-border-glow p-6 rounded-2xl max-w-2xl mx-auto my-6 relative">
+                    <i class="fas fa-quote-left text-gold-500/20 text-4xl absolute top-3 left-4"></i>
+                    <p class="text-lg sm:text-xl font-medium text-slate-100 italic relative z-10 px-6">
+                        "Dad, Grateful for you"
+                    </p>
+                    <i class="fas fa-quote-right text-gold-500/20 text-4xl absolute bottom-3 right-4"></i>
+                </div>
+            </div>
+
+            <!-- Polaroid Photo Gallery -->
+            <div class="w-full mb-20">
+                <h2 class="text-xl font-serif text-gold-400 mb-6 flex items-center gap-2 border-b border-slate-800 pb-3">
+                    <i class="fas fa-images"></i> Memory Lane Gallery
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
+                    <!-- Photo Card 1 -->
+                    <div class="polaroid-card p-4 rounded-lg shadow-xl cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-09-30 at 12.30.27 PM.jpeg', '🔥🤣')">
+                        <div class="aspect-[4/3] bg-slate-200 rounded overflow-hidden mb-3 relative group">
+                            <img src="WhatsApp Image 2026-09-30 at 12.30.27 PM.jpeg" alt="Dad Memory 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-navy-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                                <i class="fas fa-search-plus text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="font-cursive text-2xl text-slate-800 text-center">🤣🔥</p>
+                    </div>
+
+                    <!-- Photo Card 2 -->
+                    <div class="polaroid-card p-4 rounded-lg shadow-xl cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-09-30 at 12.31.16 PM.jpeg', 'Chingon😎')">
+                        <div class="aspect-[4/3] bg-slate-200 rounded overflow-hidden mb-3 relative group">
+                            <img src="WhatsApp Image 2026-09-30 at 12.31.16 PM.jpeg" alt="Dad Memory 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-navy-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                                <i class="fas fa-search-plus text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="font-cursive text-2xl text-slate-800 text-center">Chingon😎</p>
+                    </div>
+
+                    <!-- Photo Card 3 -->
+                    <div class="polaroid-card p-4 rounded-lg shadow-xl cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-09-30 at 12.30.47 PM.jpeg', 'YAaa🤙🏻')">
+                        <div class="aspect-[4/3] bg-slate-200 rounded overflow-hidden mb-3 relative group">
+                            <img src="WhatsApp Image 2026-09-30 at 12.30.47 PM.jpeg" alt="Dad Memory 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-navy-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                                <i class="fas fa-search-plus text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="font-cursive text-2xl text-slate-800 text-center">🤙🏻🤙🏻</p>
+                    </div>
+
+                    <!-- Photo Card 4 -->
+                    <div class="polaroid-card p-4 rounded-lg shadow-xl cursor-pointer" onclick="openLightbox('WhatsApp Image 2026-09-30 at 12.31.32 PM.jpeg', '')">
+                        <div class="aspect-[4/3] bg-slate-200 rounded overflow-hidden mb-3 relative group">
+                            <img src="WhatsApp Image 2026-09-30 at 12.31.32 PM.jpeg" alt="Dad Memory 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-navy-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                                <i class="fas fa-search-plus text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="font-cursive text-2xl text-slate-800 text-center">Endless Wisdom</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fixed Bottom-Right "Next Page" Floating Trigger -->
+            <div class="fixed bottom-6 right-6 z-40">
+                <button 
+                    onclick="openAgeModal()" 
+                    class="group relative inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-navy-900 font-bold shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-gold-300"
+                >
+                    <span class="text-sm">Next Page</span>
+                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-300 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
+                    </span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= STEP 3: AGE VERIFICATION MODAL GATE ================= -->
+        <div id="ageModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy-900/80 backdrop-blur-md">
+            <div class="glass-card gold-border-glow p-6 sm:p-8 rounded-3xl w-full max-w-sm text-center relative shadow-2xl animate-fade-in">
+                
+                <button onclick="closeAgeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-2xl">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+
+                <h3 class="text-2xl font-serif font-bold gold-gradient-text mb-2">Age Security Gate</h3>
+                <p class="text-xs text-slate-300 mb-6">To unlock your secret final birthday surprise, please confirm your current age below!</p>
+
+                <form onsubmit="handleAgeSubmit(event)" class="space-y-4">
+                    <div>
+                        <input 
+                            type="number" 
+                            id="ageInput" 
+                            placeholder="Enter your age" 
+                            required
+                            class="w-full text-center text-2xl font-bold py-3 bg-navy-900 border border-slate-700 focus:border-gold-400 rounded-xl text-gold-300 outline-none transition-all shadow-inner"
+                        >
+                    </div>
+
+                    <div id="ageError" class="hidden p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs font-medium">
+                        Nice try, young man! Try entering 46 😉
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-400 text-navy-900 font-bold rounded-xl shadow-lg hover:from-gold-400 hover:to-gold-300 transition-all active:scale-[0.98]"
+                    >
+                        Verify & Continue
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= STEP 4: SECRET FINALE PAGE ================= -->
+        <section id="finalePage" class="page-section flex-col items-center justify-start w-full max-w-4xl mx-auto py-8">
+            
+            <!-- Floating Balloons Container -->
+            <div id="balloonContainer" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+            <!-- Grand Celebration Header -->
+            <div class="text-center mb-8 relative z-10">
+                <span class="text-xs font-bold tracking-widest text-gold-400 uppercase bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/30">
+                    Grand Birthday Finale
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-serif font-bold gold-gradient-text mt-4 mb-2">
+                    Cheers to 46 Years!
+                </h1>
+                <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                    46 years of incredible wisdom, strength, laughter, and unbelievable memories. Here's to making this year the best one yet!
+                </p>
+            </div>
+
+            <!-- Interactive Cake Section -->
+            <div class="glass-card gold-border-glow p-8 rounded-3xl w-full max-w-lg mx-auto text-center relative z-10 mb-10">
+                <h3 class="text-lg font-serif text-gold-300 mb-6">Make a Wish & Blow Out the Candles!</h3>
+                
+                <!-- Vector SVG Cake -->
+                <div class="relative w-48 h-48 mx-auto mb-6 flex items-end justify-center">
+                    <svg viewBox="0 0 200 200" class="w-full h-full">
+                        <!-- Cake Base Plate -->
+                        <ellipse cx="100" cy="180" rx="90" ry="12" fill="#3A506B"/>
+                        <ellipse cx="100" cy="178" rx="85" ry="10" fill="#1C2541"/>
+
+                        <!-- Layer 1 Bottom -->
+                        <path d="M25,140 Q100,165 175,140 L175,170 Q100,195 25,170 Z" fill="#D4AF37"/>
+                        <!-- Layer 1 Frosting -->
+                        <path d="M25,140 Q100,165 175,140 L175,148 Q100,173 25,148 Z" fill="#FFE5A3"/>
+
+                        <!-- Layer 2 Middle -->
+                        <path d="M40,105 Q100,125 160,105 L160,140 Q100,165 40,140 Z" fill="#1C2541"/>
+                        <!-- Layer 2 Frosting -->
+                        <path d="M40,105 Q100,125 160,105 L160,113 Q100,133 40,113 Z" fill="#AA820A"/>
+
+                        <!-- Layer 3 Top -->
+                        <path d="M55,75 Q100,90 145,75 L145,105 Q100,125 55,105 Z" fill="#D4AF37"/>
+                        <ellipse cx="100" cy="75" rx="45" ry="12" fill="#FFE5A3"/>
+
+                        <!-- Candle 1 -->
+                        <rect x="82" y="45" width="8" height="30" fill="#E2E8F0" rx="2"/>
+                        <!-- Candle 2 -->
+                        <rect x="110" y="45" width="8" height="30" fill="#E2E8F0" rx="2"/>
+
+                        <!-- Candle Flames -->
+                        <g id="candleFlames">
+                            <!-- Flame 1 -->
+                            <path class="flame" d="M86,30 C80,38 86,45 86,45 C86,45 92,38 86,30 Z" fill="#FFD700"/>
+                            <ellipse class="flame" cx="86" cy="40" rx="2" ry="4" fill="#FF4500"/>
+
+                            <!-- Flame 2 -->
+                            <path class="flame" d="M114,30 C108,38 114,45 114,45 C114,45 120,38 114,30 Z" fill="#FFD700"/>
+                            <ellipse class="flame" cx="114" cy="40" rx="2" ry="4" fill="#FF4500"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <button 
+                    id="blowBtn"
+                    onclick="blowOutCandles()" 
+                    class="px-6 py-3 bg-navy-900 border border-gold-500/50 hover:border-gold-400 text-gold-300 font-semibold rounded-xl text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 mx-auto"
+                >
+                    <i class="fas fa-wind text-gold-400"></i>
+                    <span>Tap to Blow Out Candles</span>
+                </button>
+            </div>
+
+            <!-- Gift Unboxing Surprise -->
+            <div class="w-full max-w-lg mx-auto relative z-10 mb-12">
+                <div id="giftCard" onclick="openGift()" class="glass-card gold-border-glow p-8 rounded-3xl text-center cursor-pointer hover:border-gold-400 transition-all duration-300 group">
+                    <div id="giftIconContainer" class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-gold-600 to-gold-400 flex items-center justify-center text-navy-900 text-3xl shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4 id="giftTitle" class="text-xl font-serif font-bold text-white mb-2">You Have a Special Gift Card!</h4>
+                    <p id="giftSub" class="text-xs text-slate-300">Tap here to reveal your personal birthday message...</p>
+
+                    <!-- Hidden Gift Message Content -->
+                    <div id="giftContent" class="hidden text-left mt-6 pt-6 border-t border-slate-700/60 animate-fade-in space-y-4">
+                        <p class="text-slate-200 text-sm leading-relaxed">
+                            <strong>Dear Dad,</strong><br>
+                            Thank you for every sacrifice, every laugh, and every lesson you've taught me throughout the years. 
+                            Having you as a father is the greatest blessing. I hope this 46th year brings you endless joy, health, peace, and prosperity!
+                        </p>
+                        <div class="text-right pt-2">
+                            <span class="font-cursive text-3xl gold-gradient-text block">With Love Always,</span>
+                            <span class="text-xs text-gold-400 font-semibold tracking-wider uppercase">Gonzalez Family</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex flex-wrap justify-center gap-4 relative z-10 mb-8">
+                <button 
+                    onclick="triggerFireworks()" 
+                    class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-400 text-navy-900 font-bold rounded-xl shadow-lg hover:from-gold-400 hover:to-gold-300 transition-all text-sm flex items-center gap-2"
+                >
+                    <i class="fas fa-sparkles"></i> More Confetti!
+                </button>
+                <button 
+                    onclick="restartApp()" 
+                    class="px-6 py-3 glass-card text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 font-semibold rounded-xl transition-all text-sm flex items-center gap-2"
+                >
+                    <i class="fas fa-redo-alt"></i> Back to Start
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Photo Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-navy-900/90 backdrop-blur-md items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full text-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white text-2xl hover:text-gold-400">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="lightboxImg" src="" alt="Expanded Memory" class="w-full max-h-[75vh] object-contain rounded-2xl gold-border-glow shadow-2xl mb-4">
+            <p id="lightboxCaption" class="font-cursive text-3xl text-gold-300"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="relative z-10 text-center py-4 text-xs text-slate-500 border-t border-slate-800/40">
+        Created for Nelson Gonzlaz's 46th Birthday
+    </footer>
+
+    <!-- Web Audio Synthesizer Script & Application Controller Logic -->
+    <script>
+        // --- Web Audio API Birthday Tune Synthesizer ---
+        let audioCtx = null;
+        let isPlaying = false;
+        let audioTimeout = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        const notes = {
+            'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23,
+            'G4': 392.00, 'A4': 440.00, 'A4#': 466.16, 'B4': 493.88,
+            'C5': 523.25
+        };
+
+        const birthdayMelody = [
+            { note: 'C4', duration: 0.35 }, { note: 'C4', duration: 0.25 },
+            { note: 'D4', duration: 0.6 },  { note: 'C4', duration: 0.6 },
+            { note: 'F4', duration: 0.6 },  { note: 'E4', duration: 1.0 },
+
+            { note: 'C4', duration: 0.35 }, { note: 'C4', duration: 0.25 },
+            { note: 'D4', duration: 0.6 },  { note: 'C4', duration: 0.6 },
+            { note: 'G4', duration: 0.6 },  { note: 'F4', duration: 1.0 },
+
+            { note: 'C4', duration: 0.35 }, { note: 'C4', duration: 0.25 },
+            { note: 'C5', duration: 0.6 },  { note: 'A4', duration: 0.6 },
+            { note: 'F4', duration: 0.6 },  { note: 'E4', duration: 0.6 },
+            { note: 'D4', duration: 0.8 },
+
+            { note: 'A4#', duration: 0.35 }, { note: 'A4#', duration: 0.25 },
+            { note: 'A4', duration: 0.6 },   { note: 'F4', duration: 0.6 },
+            { note: 'G4', duration: 0.6 },   { note: 'F4', duration: 1.2 }
+        ];
+
+        function playNote(freq, duration, startTime) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, startTime);
+
+            gain.gain.setValueAtTime(0.15, startTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(startTime);
+            osc.stop(startTime + duration);
+        }
+
+        function playBirthdayTune() {
+            if (!isPlaying) return;
+            initAudio();
+            let currentTime = audioCtx.currentTime;
+
+            birthdayMelody.forEach((item) => {
+                playNote(notes[item.note], item.duration, currentTime);
+                currentTime += item.duration + 0.08;
+            });
+
+            const totalDuration = (currentTime - audioCtx.currentTime) * 1000;
+            audioTimeout = setTimeout(() => {
+                if (isPlaying) playBirthdayTune();
+            }, totalDuration + 1000);
+        }
+
+        function toggleAudio() {
+            initAudio();
+            isPlaying = !isPlaying;
+            const soundIcon = document.getElementById('soundIcon');
+
+            if (isPlaying) {
+                soundIcon.className = "fas fa-volume-up text-lg text-gold-300";
+                playBirthdayTune();
+            } else {
+                soundIcon.className = "fas fa-volume-mute text-lg";
+                if (audioTimeout) clearTimeout(audioTimeout);
+            }
+        }
+
+
+        // --- Navigation Controller ---
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // --- Step 1: Login Handler ---
+        function handleLogin(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('nameInput').value.trim().toLowerCase();
+            const errorEl = document.getElementById('loginError');
+
+            // Verify "Nelson Gonzlaz" (case-insensitive & trimmed)
+            if (inputVal === 'nelson gonzlaz' || inputVal === 'nelson gonzalez') {
+                errorEl.classList.add('hidden');
+                showPage('dashboardPage');
+                triggerConfetti();
+                
+                // Automatically activate sound if user interacts
+                if (!isPlaying) {
+                    toggleAudio();
+                }
+            } else {
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        // --- Step 2 & 3: Age Gate Modal Handler ---
+        function openAgeModal() {
+            const modal = document.getElementById('ageModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('ageInput').focus();
+        }
+
+        function closeAgeModal() {
+            const modal = document.getElementById('ageModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.getElementById('ageError').classList.add('hidden');
+        }
+
+        function handleAgeSubmit(e) {
+            e.preventDefault();
+            const ageVal = document.getElementById('ageInput').value.trim();
+            const errorEl = document.getElementById('ageError');
+
+            if (ageVal === '46') {
+                errorEl.classList.add('hidden');
+                closeAgeModal();
+                showPage('finalePage');
+                triggerFireworks();
+                spawnBalloons();
+            } else {
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        // --- Step 4: Finale Animations & Features ---
+        function blowOutCandles() {
+            const flames = document.getElementById('candleFlames');
+            const btn = document.getElementById('blowBtn');
+            
+            flames.style.opacity = '0';
+            flames.style.transition = 'opacity 0.5s ease-out';
+            
+            btn.innerHTML = `<i class="fas fa-check text-emerald-400"></i> <span>Wish Granted!</span>`;
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-default');
+
+            triggerFireworks();
+        }
+
+        function openGift() {
+            const giftContent = document.getElementById('giftContent');
+            const giftTitle = document.getElementById('giftTitle');
+            const giftSub = document.getElementById('giftSub');
+            const giftIcon = document.getElementById('giftIconContainer');
+
+            giftContent.classList.remove('hidden');
+            giftTitle.textContent = "Birthday Wishes Unlocked!";
+            giftSub.textContent = "Here is your dedicated birthday card:";
+            giftIcon.innerHTML = `<i class="fas fa-envelope-open-text text-navy-900"></i>`;
+            
+            triggerConfetti();
+        }
+
+        function spawnBalloons() {
+            const container = document.getElementById('balloonContainer');
+            container.innerHTML = '';
+            const colors = ['#D4AF37', '#FFD700', '#3A506B', '#1C2541', '#E2E8F0'];
+
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                
+                const size = Math.random() * 30 + 40; // 40px to 70px
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 90 + 5; // 5% to 95%
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 4 + 6;
+
+                balloon.style.width = `${size}px`;
+                balloon.style.height = `${size * 1.25}px`;
+                balloon.style.backgroundColor = color;
+                balloon.style.left = `${left}%`;
+                balloon.style.animationDelay = `${delay}s`;
+                balloon.style.animationDuration = `${duration}s`;
+
+                container.appendChild(balloon);
+            }
+        }
+
+        function restartApp() {
+            document.getElementById('nameInput').value = '';
+            document.getElementById('ageInput').value = '';
+            showPage('loginPage');
+        }
+
+        // --- Lightbox Modal ---
+        function openLightbox(imgUrl, caption) {
+            document.getElementById('lightboxImg').src = imgUrl;
+            document.getElementById('lightboxCaption').textContent = caption;
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }
+
+        // --- Confetti & Fireworks Effects ---
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#D4AF37', '#FFD700', '#FFE5A3', '#3A506B']
+                });
+            }
+        }
+
+        function triggerFireworks() {
+            if (typeof confetti === 'function') {
+                const duration = 2.5 * 1000;
+                const animationEnd = Date.now() + duration;
+
+                const interval = setInterval(function() {
+                    const timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    const particleCount = 40 * (timeLeft / duration);
+                    confetti({
+                        particleCount,
+                        startVelocity: 30,
+                        spread: 360,
+                        ticks: 60,
+                        origin: { x: Math.random(), y: Math.random() - 0.2 },
+                        colors: ['#D4AF37', '#FFD700', '#FFFFFF', '#1C2541']
+                    });
+                }, 250);
+            }
+        }
+
+        // --- Background Floating Canvas Particles ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 15), 60);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            initParticles();
+            animateParticles();
+        };
+    </script>
+</body>
+</html>
